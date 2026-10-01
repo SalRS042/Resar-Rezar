@@ -1,523 +1,295 @@
 import pandas as pd
 from IPython.display import clear_output
+import unicodedata
 
 Oracions_Valencia = pd.read_csv('Oracions_Valencia.csv')
 Oraciones_Castellano = pd.read_csv('Oracions_Castellano.csv')
+
 Misteris_Valencia = pd.read_csv('Misteris_Valencia.csv')
 Misterios_Castellano = pd.read_csv('Misterios_Castellano.csv')
 
-idioma = input('\n Idioma: Valencià o Castellano ').strip().lower()
+def normalizar(texto):
+    texto = texto.strip().lower()
+    return ''.join(
+        caracter
+        for caracter in unicodedata.normalize('NFD', texto)
+        if unicodedata.category(caracter) != 'Mn'
+    )
 
-#dia_cas = input('\n ¿Qué día es hoy? ').strip().lower()
+def continuar_cas():
+    input("Pulsa Enter para continuar...")
+    clear_output(wait=True)
 
-#que_rezar_cas = input('\n ¿Qué quieres rezar? ').strip().lower()
+def continuar_val():
+    input("Apreta Enter par a continuar...")
+    clear_output(wait=True)
 
-# ----------- VALENCIÀ ------------
+# Rosari
 
-if idioma == 'valencià':
-    que_resar_val = input('\n Què vols resar?: Rosari o Via Crucis').strip().lower()
-    if que_resar_val == 'rosari':
-        dia_val = input('\n Quin dia és hui?: Dilluns, Dimarts, Dimecres, Dijous, Divendres, Dissabte o Diumenge.').strip().lower()
-        if dia_val == 'dilluns' or dia_val == 'dissabte':
-            print("Perfecte! Anem a resar! Sols has de seguir les instruccions. \n")
-            print("Comencem amb la senyal de la creu i l'acte de constricció: \n", Oracions_Valencia['Oracions'][0], "\n")
-            print(Oracions_Valencia['Oracions'][1], "\n")
+def resar_rosari(
+    oracions,
+    misteris,
+    columna_misteris,
+    nom_misteris,
+    nom_misteri,
+    idioma
+):
+    
+    if idioma == 'valencià':
+        print("Perfecte! Anem a resar! Sols has de seguir les instruccions.\n")
 
-            print(Oracions_Valencia['Oracions'][2], "\n")
-            print(Oracions_Valencia['Oracions'][3], "\n")
-            print(Oracions_Valencia['Oracions'][4], "\n")
+        print("Comencem amb la senyal de la creu i l'acte de constricció:\n",Oracions_Valencia['Oracions'][0],"\n")
+        print(oracions['Oracions'][1], "\n")
+        print(oracions['Oracions'][2], "\n")
+        print(oracions['Oracions'][3], "\n")
+        print(oracions['Oracions'][4], "\n")
+        continuar_val()
+        clear_output(wait=True)
 
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print(f"Ara anem a resar els misteris " f"{nom_misteris}.\n")
+        for i in range(5):
+            print(misteris['Orden'][i],nom_misteri,": ", misteris[columna_misteris][i],"\n")
+    
+            print("Pare nostre: ",oracions['Oracions'][5],"\n")
+            print("10 voltes l'Ave Maria: ",oracions['Oracions'][6],"\n")
+            print("Gloria: ",oracions['Oracions'][4],"\n")
+            print("Jaculatòria: ",oracions['Oracions'][7],"\n")
+            print("Oh, Jesús meu: ",oracions['Oracions'][8],"\n")
+            continuar_val()
+            clear_output(wait=True)
 
-            print("Ara anem a resar els misteris Gojosos. \n")
+        print("Anem a resar les Letanies a la Santíssima Verge:\n", oracions['Oracions'][9],"\n")
+        continuar_val()
+        clear_output(wait=True)
 
-            for i in range(5):
-                print(Misteris_Valencia['Orden'][i], " Gojós: ", Misteris_Valencia['Misteris Gojosos'][i], "\n")
+        print("Invoquem al Corder de Déu:\n",oracions['Oracions'][10],"\n")
+        continuar_val()
+        clear_output(wait=True)
 
-                print("Pare nostre: ", Oracions_Valencia['Oracions'][5], "\n")
-                print("10 voltes l'Ave Maria: ", Oracions_Valencia['Oracions'][6], "\n")
-                print("Gloria: ", Oracions_Valencia['Oracions'][4], "\n")
-                print("Jaculatòria: ", Oracions_Valencia['Oracions'][7], "\n")
-                print("Oh, Jesús meu: ", Oracions_Valencia['Oracions'][8], "\n")
+        print("Demane'm:\n",oracions['Oracions'][11],"\n")
+        continuar_val()
+        clear_output(wait=True)
 
-                pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-                clear_output(True)
+        print("Per les intencions del Sant Pare: ",oracions['Oracions'][5],"\n")
+        continuar_val()
+        clear_output(wait=True)
 
-            print("Anem a resar les Letanies a la Santíssima Verge: \n", Oracions_Valencia['Oracions'][9], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print("Un Ave Maria: ",oracions['Oracions'][6],"\n")
+        continuar_val()
+        clear_output(wait=True)
 
-            print("Invoquem al Corder de Déu: \n", Oracions_Valencia['Oracions'][10], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print("Un gloria: ",oracions['Oracions'][4],"\n")
+        continuar_val()
+        clear_output(wait=True)
 
-            print("Demane'm: \n", Oracions_Valencia['Oracions'][11], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print("Una Salve a la Verge:\n",oracions['Oracions'][12],"\n")
+        continuar_val()
+        clear_output(wait=True)
 
-            print("Per les intencions del Sant Pare: ", Oracions_Valencia['Oracions'][5], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-            
-            print("Un Ave Maria: ", Oracions_Valencia['Oracions'][6], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print("Jaculatòria:\n",oracions['Oracions'][13],"\n")
+        continuar_val()
+        clear_output(wait=True)
 
-            print("Un gloria: ", Oracions_Valencia['Oracions'][4], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+    elif idioma == 'castellano':
+        print("¡Perfecto! ¡Vamos a rezar! Sólo tienes que seguir las instrucciones.\n")
 
-            print("Una Salve a la Verge: \n", Oracions_Valencia['Oracions'][12], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print("Empezamos con la señal de la cruz y el acto de contrición:\n", oracions['Oraciones'][0],"\n")
+        print(oracions['Oraciones'][1], "\n")
+        print(oracions['Oraciones'][2], "\n")
+        print(oracions['Oraciones'][3], "\n")
+        print(oracions['Oraciones'][4], "\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-            print("Jacaculatòria: \n", Oracions_Valencia['Oracions'][13], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print(f"Ahora vamos a rezar los misterios " f"{nom_misteris}.\n")
+        for i in range(5):
+            print(misteris['Orden'][i],nom_misteri,": ", misteris[columna_misteris][i],"\n")
+    
+            print("Padre nuestro: ",oracions['Oraciones'][5],"\n")
+            print("10 veces el Ave Maria: ",oracions['Oraciones'][6],"\n")
+            print("Gloria: ",oracions['Oraciones'][4],"\n")
+            print("Jaculatoria: ",oracions['Oraciones'][7],"\n")
+            print("Oh, Jesús mío: ",oracions['Oraciones'][8],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-        elif dia_val == 'dimecres' or dia_val == 'diumenge':
-            print("Perfecte! Anem a resar! Sols has de seguir les instruccions. \n")
-            print("Comencem amb la senyal de la creu i l'acte de constricció: \n", Oracions_Valencia['Oracions'][0], "\n")
-            print(Oracions_Valencia['Oracions'][1], "\n")
+        print("Vamos a rezar las Letanías a la Santísima Virgen:\n", oracions['Oraciones'][9],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-            print(Oracions_Valencia['Oracions'][2], "\n")
-            print(Oracions_Valencia['Oracions'][3], "\n")
-            print(Oracions_Valencia['Oracions'][4], "\n")
+        print("Invocamos al Cordero de Dios:\n",oracions['Oraciones'][10],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print("Pedimos:\n",oracions['Oraciones'][11],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-            print("Ara anem a resar els misteris Gloriosos. \n")
+        print("Por las intenciones del Santo Padre: ",oracions['Oraciones'][5],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-            for i in range(5):
-                print(Misteris_Valencia['Orden'][i], " Glorios: ", Misteris_Valencia['Misteris Gloriosos'][i], "\n")
+        print("Un Ave María: ",oracions['Oraciones'][6],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-                print("Pare nostre: ", Oracions_Valencia['Oracions'][5], "\n")
-                print("10 voltes l'Ave Maria: ", Oracions_Valencia['Oracions'][6], "\n")
-                print("Gloria: ", Oracions_Valencia['Oracions'][4], "\n")
-                print("Jaculatòria: ", Oracions_Valencia['Oracions'][7], "\n")
-                print("Oh, Jesús meu: ", Oracions_Valencia['Oracions'][8], "\n")
+        print("Un Gloria: ",oracions['Oraciones'][4],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-                pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-                clear_output(True)
+        print("Una Salve a la Virgen:\n",oracions['Oraciones'][12],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-            print("Anem a resar les Letanies a la Santíssima Verge: \n", Oracions_Valencia['Oracions'][9], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        print("Jaculatoria:\n",oracions['Oraciones'][13],"\n")
+        continuar_cas()
+        clear_output(wait=True)
 
-            print("Invoquem al Corder de Déu: \n", Oracions_Valencia['Oracions'][10], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+    else:
+        pass
 
-            print("Demane'm: \n", Oracions_Valencia['Oracions'][11], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+def rosari_valencia():
+    que_resar = normalizar(input('\nQuè vols resar?: Rosari o Via Crucis '))
 
-            print("Per les intencions del Sant Pare: ", Oracions_Valencia['Oracions'][5], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-            
-            print("Un Ave Maria: ", Oracions_Valencia['Oracions'][6], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+    if que_resar == 'rosari':
+        dia = normalizar(input('\nQuin dia és hui?: Dilluns, Dimarts, Dimecres, Dijous, Divendres, Dissabte o Diumenge. '))
 
-            print("Un gloria: ", Oracions_Valencia['Oracions'][4], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
+        misteris = {
+            'dilluns': (
+                'Misteris Gojosos',
+                'Gojós',
+                'Gojosos'
+            ),
+            'dissabte': (
+                'Misteris Gojosos',
+                'Gojós',
+                'Gojosos'
+            ),
+            'dimecres': (
+                'Misteris Gloriosos',
+                'Gloriós',
+                'Gloriosos'
+            ),
+            'diumenge': (
+                'Misteris Gloriosos',
+                'Gloriós',
+                'Gloriosos'
+            ),
+            'dimarts': (
+                'Misteris Dolorosos',
+                'Dolorós',
+                'Dolorosos'
+            ),
+            'divendres': (
+                'Misteris Dolorosos',
+                'Dolorós',
+                'Dolorosos'
+            ),
+            'dijous': (
+                'Misteris Lluminosos',
+                'Luminós',
+                'Lluminosos'
+            )
+        }
 
-            print("Una Salve a la Verge: \n", Oracions_Valencia['Oracions'][12], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Jacaculatòria: \n", Oracions_Valencia['Oracions'][13], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-        elif dia_val == 'dimarts' or dia_val == 'divendres':
-            print("Perfecte! Anem a resar! Sols has de seguir les instruccions. \n")
-            print("Comencem amb la senyal de la creu i l'acte de constricció: \n", Oracions_Valencia['Oracions'][0], "\n")
-            print(Oracions_Valencia['Oracions'][1], "\n")
-
-            print(Oracions_Valencia['Oracions'][2], "\n")
-            print(Oracions_Valencia['Oracions'][3], "\n")
-            print(Oracions_Valencia['Oracions'][4], "\n")
-
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Ara anem a resar els misteris Dolorosos. \n")
-
-            for i in range(5):
-                print(Misteris_Valencia['Orden'][i], " Dolorós: ", Misteris_Valencia['Misteris Dolorosos'][i], "\n")
-
-                print("Pare nostre: ", Oracions_Valencia['Oracions'][5], "\n")
-                print("10 voltes l'Ave Maria: ", Oracions_Valencia['Oracions'][6], "\n")
-                print("Gloria: ", Oracions_Valencia['Oracions'][4], "\n")
-                print("Jaculatòria: ", Oracions_Valencia['Oracions'][7], "\n")
-                print("Oh, Jesús meu: ", Oracions_Valencia['Oracions'][8], "\n")
-
-                pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-                clear_output(True)
-
-            print("Anem a resar les Letanies a la Santíssima Verge: \n", Oracions_Valencia['Oracions'][9], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Invoquem al Corder de Déu: \n", Oracions_Valencia['Oracions'][10], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Demane'm: \n", Oracions_Valencia['Oracions'][11], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Per les intencions del Sant Pare: ", Oracions_Valencia['Oracions'][5], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-            
-            print("Un Ave Maria: ", Oracions_Valencia['Oracions'][6], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Un gloria: ", Oracions_Valencia['Oracions'][4], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Una Salve a la Verge: \n", Oracions_Valencia['Oracions'][12], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Jacaculatòria: \n", Oracions_Valencia['Oracions'][13], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-        elif dia_val == 'dijous':
-            print("Perfecte! Anem a resar! Sols has de seguir les instruccions. \n")
-            print("Comencem amb la senyal de la creu i l'acte de constricció: \n", Oracions_Valencia['Oracions'][0], "\n")
-            print(Oracions_Valencia['Oracions'][1], "\n")
-
-            print(Oracions_Valencia['Oracions'][2], "\n")
-            print(Oracions_Valencia['Oracions'][3], "\n")
-            print(Oracions_Valencia['Oracions'][4], "\n")
-
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Ara anem a resar els misteris Lluminosos. \n")
-
-            for i in range(5):
-                print(Misteris_Valencia['Orden'][i], " Lluminos: ", Misteris_Valencia['Misteris Lluminosos'][i], "\n")
-
-                print("Pare nostre: ", Oracions_Valencia['Oracions'][5], "\n")
-                print("10 voltes l'Ave Maria: ", Oracions_Valencia['Oracions'][6], "\n")
-                print("Gloria: ", Oracions_Valencia['Oracions'][4], "\n")
-                print("Jaculatòria: ", Oracions_Valencia['Oracions'][7], "\n")
-                print("Oh, Jesús meu: ", Oracions_Valencia['Oracions'][8], "\n")
-
-                pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-                clear_output(True)
-
-            print("Anem a resar les Letanies a la Santíssima Verge: \n", Oracions_Valencia['Oracions'][9], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Invoquem al Corder de Déu: \n", Oracions_Valencia['Oracions'][10], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Demane'm: \n", Oracions_Valencia['Oracions'][11], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Per les intencions del Sant Pare: ", Oracions_Valencia['Oracions'][5], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-            
-            print("Un Ave Maria: ", Oracions_Valencia['Oracions'][6], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Un gloria: ", Oracions_Valencia['Oracions'][4], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Una Salve a la Verge: \n", Oracions_Valencia['Oracions'][12], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-            print("Jacaculatòria: \n", Oracions_Valencia['Oracions'][13], "\n")
-            pausa = input("Apreta Enter per continuar amb el Rosari. \n")
-            clear_output(True)
-
-        else:
+        if dia not in misteris:
             print("No has introduït un dia correcte. Torna a començar el programa i introdueix un dia correcte.")
-            exit()
+            return
 
-    elif que_resar_val == 'via crucis':
-            print('En procés de desenvolupament. Esta opció estarà disponible a la pròxima actualització del programa.')
+        columna, nombre_misteri, nombre_misterios = misteris[dia]
+
+        resar_rosari(
+            Oracions_Valencia,
+            Misteris_Valencia,
+            columna,
+            nombre_misterios,
+            nombre_misteri,
+            'valencià'
+        )
+
+    elif que_resar == 'via crucis':
+        print('En procés de desenvolupament. Esta opció estarà disponible a la pròxima actualització del programa.')
 
     else:
         print("No has introduït una opció correcta. Torna a començar el programa i introdueix una opció correcta.")
-        exit()
-else:
-    print("No has introduït un idioma correcte. Torna a començar el programa i introdueix un idioma correcte.")
-    exit()
 
-#----------- CASTELLANO ----------
+def rosario_castellano():
+    que_rezar = normalizar(input('\n¿Qué quieres rezar?: Rosario o Via Crucis '))
 
-if idioma == 'castellano':
-    que_rezar_cas = input('\n ¿Qué quieres rezar?: Rosario o Via Crucis').strip().lower()
-    if que_rezar_cas == 'rosario':
-        dia_cas = input('\n ¿Que día es hoy?: Lunes, Martes, Miercoles, Jueves, Viernes, Sábado o Domingo.').strip().lower()
-        if dia_cas == 'lunes' or dia_cas == 'sabado':
-            print("¡Perfecto! ¡Vamos a rezar! Sólo tienes que seguir las instrucciones.\n")
-            print("Empezamos con la señal de la creu y el acto de contricción: \n", Oraciones_Castellano['Oraciones'][0], "\n")
-            print(Oraciones_Castellano['Oraciones'][1], "\n")
+    if que_rezar == 'rosario':
 
-            print(Oraciones_Castellano['Oraciones'][2], "\n")
-            print(Oraciones_Castellano['Oraciones'][3], "\n")
-            print(Oraciones_Castellano['Oraciones'][4], "\n")
+        dia = normalizar(input('\n¿Qué día es hoy?: Lunes, Martes, Miércoles, Jueves, Viernes, Sábado o Domingo. '))
 
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
+        misterios = {
+            'lunes': (
+                'Misterios Gozosos',
+                'Gozoso',
+                'Gozosos'
+            ),
+            'sabado': (
+                'Misterios Gozosos',
+                'Gozoso',
+                'Gozosos'
+            ),
+            'miercoles': (
+                'Misterios Gloriosos',
+                'Glorioso',
+                'Gloriosos'
+            ),
+            'domingo': (
+                'Misterios Gloriosos',
+                'Glorioso',
+                'Gloriosos'
+            ),
+            'martes': (
+                'Misterios Dolorosos',
+                'Doloroso',
+                'Dolorosos'
+            ),
+            'viernes': (
+                'Misterios Dolorosos',
+                'Doloroso',
+                'Dolorosos'
+            ),
+            'jueves': (
+                'Misterios Luminosos',
+                'Luminoso',
+                'Luminosos'
+            )
+        }
 
-            print("Ahora vamos a rezar los misterios Gozosos. \n")
-
-            for i in range(5):
-                print(Misterios_Castellano['Orden'][i], " Gozoso: ", Misterios_Castellano['Misterios Gozosos'][i], "\n")
-
-                print("Padre nuestro: ", Oraciones_Castellano['Oraciones'][5], "\n")
-                print("10 veces el Ave Maria: ", Oraciones_Castellano['Oraciones'][6], "\n")
-                print("Gloria: ", Oraciones_Castellano['Oraciones'][4], "\n")
-                print("Jaculatoria: ", Oraciones_Castellano['Oraciones'][7], "\n")
-                print("Oh, Jesús mío: ", Oraciones_Castellano['Oraciones'][8], "\n")
-
-                pausa = input("Aprieta para continuar con el Rosario. \n")
-                clear_output(True)
-
-            print("Vamos a rezar las Letanías a la Santísima Virgen: \n", Oraciones_Castellano['Oraciones'][9], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Invocamos al Cordero de Dios: \n", Oraciones_Castellano['Oraciones'][10], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Pedimos: \n", Oraciones_Castellano['Oraciones'][11], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Por las intenciones del Santo Padre: ", Oraciones_Castellano['Oraciones'][5], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-            
-            print("Un Ave Maria: ", Oraciones_Castellano['Oraciones'][6], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Un gloria: ", Oraciones_Castellano['Oraciones'][4], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Una Salve a la Virgen: \n", Oraciones_Castellano['Oraciones'][12], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Jaculatoria: \n", Oraciones_Castellano['Oraciones'][13], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-        elif dia_cas == 'miercoles' or dia_cas == 'domingo':
-            print("¡Perfecto! ¡Vamos a rezar! Sólo tienes que seguir las instrucciones.\n")
-            print("Empezamos con la señal de la creu y el acto de contricción: \n", Oraciones_Castellano['Oraciones'][0], "\n")
-            print(Oraciones_Castellano['Oraciones'][1], "\n")
-
-            print(Oraciones_Castellano['Oraciones'][2], "\n")
-            print(Oraciones_Castellano['Oraciones'][3], "\n")
-            print(Oraciones_Castellano['Oraciones'][4], "\n")
-
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Ahora vamos a rezar los misterios Gloriosos. \n")
-
-            for i in range(5):
-                print(Misterios_Castellano['Orden'][i], " Glorioso: ", Misterios_Castellano['Misterios Gloriosos'][i], "\n")
-
-                print("Padre nuestro: ", Oraciones_Castellano['Oraciones'][5], "\n")
-                print("10 veces el Ave Maria: ", Oraciones_Castellano['Oraciones'][6], "\n")
-                print("Gloria: ", Oraciones_Castellano['Oraciones'][4], "\n")
-                print("Jaculatoria: ", Oraciones_Castellano['Oraciones'][7], "\n")
-                print("Oh, Jesús mío: ", Oraciones_Castellano['Oraciones'][8], "\n")
-
-                pausa = input("Aprieta para continuar con el Rosario. \n")
-                clear_output(True)
-
-            print("Vamos a rezar las Letanías a la Santísima Virgen: \n", Oraciones_Castellano['Oraciones'][9], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Invocamos al Cordero de Dios: \n", Oraciones_Castellano['Oraciones'][10], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Pedimos: \n", Oraciones_Castellano['Oraciones'][11], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Por las intenciones del Santo Padre: ", Oraciones_Castellano['Oraciones'][5], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-            
-            print("Un Ave Maria: ", Oraciones_Castellano['Oraciones'][6], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Un gloria: ", Oraciones_Castellano['Oraciones'][4], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Una Salve a la Virgen: \n", Oraciones_Castellano['Oraciones'][12], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Jaculatoria: \n", Oraciones_Castellano['Oraciones'][13], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-        elif dia_cas == 'martes' or dia_cas == 'viernes':
-            print("¡Perfecto! ¡Vamos a rezar! Sólo tienes que seguir las instrucciones.\n")
-            print("Empezamos con la señal de la creu y el acto de contricción: \n", Oraciones_Castellano['Oraciones'][0], "\n")
-            print(Oraciones_Castellano['Oraciones'][1], "\n")
-
-            print(Oraciones_Castellano['Oraciones'][2], "\n")
-            print(Oraciones_Castellano['Oraciones'][3], "\n")
-            print(Oraciones_Castellano['Oraciones'][4], "\n")
-
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Ahora vamos a rezar los misterios Dolorosos. \n")
-
-            for i in range(5):
-                print(Misterios_Castellano['Orden'][i], " Doloroso: ", Misterios_Castellano['Misterios Dolorosos'][i], "\n")
-
-                print("Padre nuestro: ", Oraciones_Castellano['Oraciones'][5], "\n")
-                print("10 veces el Ave Maria: ", Oraciones_Castellano['Oraciones'][6], "\n")
-                print("Gloria: ", Oraciones_Castellano['Oraciones'][4], "\n")
-                print("Jaculatoria: ", Oraciones_Castellano['Oraciones'][7], "\n")
-                print("Oh, Jesús mío: ", Oraciones_Castellano['Oraciones'][8], "\n")
-
-                pausa = input("Aprieta para continuar con el Rosario. \n")
-                clear_output(True)
-
-            print("Vamos a rezar las Letanías a la Santísima Virgen: \n", Oraciones_Castellano['Oraciones'][9], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Invocamos al Cordero de Dios: \n", Oraciones_Castellano['Oraciones'][10], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Pedimos: \n", Oraciones_Castellano['Oraciones'][11], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Por las intenciones del Santo Padre: ", Oraciones_Castellano['Oraciones'][5], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-            
-            print("Un Ave Maria: ", Oraciones_Castellano['Oraciones'][6], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Un gloria: ", Oraciones_Castellano['Oraciones'][4], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Una Salve a la Virgen: \n", Oraciones_Castellano['Oraciones'][12], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Jaculatoria: \n", Oraciones_Castellano['Oraciones'][13], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-        elif dia_cas == 'jueves':
-            print("¡Perfecto! ¡Vamos a rezar! Sólo tienes que seguir las instrucciones.\n")
-            print("Empezamos con la señal de la creu y el acto de contricción: \n", Oraciones_Castellano['Oraciones'][0], "\n")
-            print(Oraciones_Castellano['Oraciones'][1], "\n")
-
-            print(Oraciones_Castellano['Oraciones'][2], "\n")
-            print(Oraciones_Castellano['Oraciones'][3], "\n")
-            print(Oraciones_Castellano['Oraciones'][4], "\n")
-
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Ahora vamos a rezar los misterios Luminosos. \n")
-
-            for i in range(5):
-                print(Misterios_Castellano['Orden'][i], " Luminoso: ", Misterios_Castellano['Misterios Luminosos'][i], "\n")
-
-                print("Padre nuestro: ", Oraciones_Castellano['Oraciones'][5], "\n")
-                print("10 veces el Ave Maria: ", Oraciones_Castellano['Oraciones'][6], "\n")
-                print("Gloria: ", Oraciones_Castellano['Oraciones'][4], "\n")
-                print("Jaculatoria: ", Oraciones_Castellano['Oraciones'][7], "\n")
-                print("Oh, Jesús mío: ", Oraciones_Castellano['Oraciones'][8], "\n")
-
-                pausa = input("Aprieta para continuar con el Rosario. \n")
-                clear_output(True)
-
-            print("Vamos a rezar las Letanías a la Santísima Virgen: \n", Oraciones_Castellano['Oraciones'][9], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Invocamos al Cordero de Dios: \n", Oraciones_Castellano['Oraciones'][10], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Pedimos: \n", Oraciones_Castellano['Oraciones'][11], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Por las intenciones del Santo Padre: ", Oraciones_Castellano['Oraciones'][5], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-            
-            print("Un Ave Maria: ", Oraciones_Castellano['Oraciones'][6], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Un gloria: ", Oraciones_Castellano['Oraciones'][4], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Una Salve a la Virgen: \n", Oraciones_Castellano['Oraciones'][12], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-            print("Jaculatoria: \n", Oraciones_Castellano['Oraciones'][13], "\n")
-            pausa = input("Aprieta para continuar con el Rosario. \n")
-            clear_output(True)
-
-        else:
+        if dia not in misterios:
             print("No has introducido un día correcto. Vuelve a empezar el programa e introduce un día correcto.")
-            exit()
+            return
 
-    elif que_rezar_cas == 'via crucis':
+        columna, nombre_misterio, nombre_misterios = misterios[dia]
+
+        resar_rosari(
+            Oraciones_Castellano,
+            Misterios_Castellano,
+            columna,
+            nombre_misterios,
+            nombre_misterio,
+            'castellano'
+        )
+
+    elif que_rezar == 'via crucis':
         print('En proceso de desarrollo. Esta opción estará disponible en la próxima actualización del programa.')
 
     else:
         print("No has introducido una opción correcta. Vuelve a empezar el programa e introduce una opción correcta.")
-        exit()
+
+
+idioma = normalizar(input('\nIdioma: Valencià o Castellano '))
+
+if idioma == 'valencia':
+    rosari_valencia()
+
+elif idioma == 'castellano':
+    rosario_castellano()
+
 else:
     print("No has introducido un idioma correcto. Vuelve a empezar el programa e introduce un idioma correcto.")
-    exit()
-            
-
-
 
 # Gràcies de tot cor als meus pares.
 # Nostre Senyor ens ampare.
